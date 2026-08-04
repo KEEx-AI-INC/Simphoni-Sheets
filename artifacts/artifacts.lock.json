@@ -1,0 +1,17 @@
+{
+  "schema": "ai.simphoni.sheets.artifacts.v1",
+  "release": "unbuilt",
+  "artifacts": {
+    "collabora-linux-arm64": null,
+    "calc-darwin-arm64": null,
+    "calc-linux-amd64": null,
+    "offline-ui": null
+  },
+  "reviewGate": {
+    "requiresSha256": true,
+    "requiresSignature": true,
+    "requiresSbom": true,
+    "requiresBuildReceipt": true,
+    "allowsUnbuiltForDevelopment": true
+  }
+}

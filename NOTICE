@@ -1,0 +1,22 @@
+SimphoniSheets
+Copyright 2026 KEEx AI, Inc.
+
+Simphoni-owned source in this repository is licensed under the Mozilla Public
+License 2.0. The Simphoni and SimphoniSheets names and marks are not granted by
+that license.
+
+This project is designed to build and interoperate with the following upstream
+projects. Each retains its own copyright and license terms:
+
+- Collabora Online: https://github.com/CollaboraOnline/online
+  Mozilla Public License 2.0. The exact reviewed revision is recorded in
+  upstream-lock.json.
+- LibreOffice core: https://github.com/LibreOffice/core
+  Mozilla Public License 2.0 and GNU Lesser General Public License 3.0 or later,
+  as documented by the upstream project. The exact reviewed revision is
+  recorded in upstream-lock.json.
+
+Every binary release must publish its license manifest, corresponding modified
+source, patches, source archive checksums, SBOM, and reproducible build receipt.
+The release is blocked while any of those fields is missing from the reviewed
+artifact lock.

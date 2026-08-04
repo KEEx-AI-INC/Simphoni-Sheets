@@ -1,0 +1,9 @@
+{
+  "productName": "SimphoniSheets",
+  "suiteName": "Simphoni",
+  "defaultFormat": "xlsx",
+  "sourceUrl": "https://github.com/KEEx-AI-INC/Simphoni-Sheets",
+  "supportUrl": "https://simphoni.ai/support",
+  "macrosEnabled": false,
+  "telemetryNamespace": "simphoni.sheets"
+}

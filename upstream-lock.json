@@ -1,0 +1,16 @@
+{
+  "schema": "ai.simphoni.sheets.upstreams.v1",
+  "updatedAt": "2026-08-04T00:00:00Z",
+  "collaboraOnline": {
+    "repository": "https://github.com/CollaboraOnline/online.git",
+    "revision": "bff14def46c1092fec25fee4ea4acf8daced268d"
+  },
+  "libreOfficeCore": {
+    "repository": "https://github.com/LibreOffice/core.git",
+    "revision": "39fbe6e337443e93418d1f1ca4d6ca342fcf05ee"
+  },
+  "referenceCodeImage": {
+    "repository": "collabora/code",
+    "linuxArm64Digest": "sha256:72d778f466330a7ff46a415759501d60e7eefc20b8756c9d4cd777f0144a522e"
+  }
+}

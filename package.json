@@ -1,0 +1,23 @@
+{
+  "name": "@simphoni/sheets",
+  "version": "0.1.0-beta.1",
+  "private": false,
+  "type": "module",
+  "license": "MPL-2.0",
+  "scripts": {
+    "check": "node packages/contracts/src/check-contracts.js",
+    "test": "node --test packages/contracts/test/*.test.js editor-extension/test/*.test.js"
+  },
+  "exports": {
+    "./contracts": "./packages/contracts/src/index.js"
+  },
+  "files": [
+    "contracts",
+    "packages/contracts/src",
+    "editor-extension",
+    "offline-ui"
+  ],
+  "engines": {
+    "node": ">=20"
+  }
+}

@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="color-scheme" content="dark" />
+    <title>SimphoniSheets · Offline</title>
+    <link rel="stylesheet" href="./sheets.css" />
+  </head>
+  <body>
+    <main class="shell">
+      <header>
+        <div>
+          <p class="eyebrow">Simphoni Nucleus · Offline</p>
+          <h1>SimphoniSheets</h1>
+          <p class="subtitle">Private spreadsheets with local SimpleCode assistance.</p>
+        </div>
+        <button id="new-workbook" class="primary">New workbook</button>
+      </header>
+      <section class="notice" aria-live="polite">
+        <span class="status-dot"></span>
+        Cloud collaboration and SimCredits are disabled. Local SimpleCode actions are free and always require confirmation.
+      </section>
+      <section class="toolbar" aria-label="Workbook tools">
+        <input id="search" type="search" placeholder="Search workbooks" aria-label="Search workbooks" />
+        <button id="import-workbook">Import XLSX or ODS</button>
+        <button id="sync-workbooks">Sync selected</button>
+      </section>
+      <section>
+        <h2>Your encrypted vault</h2>
+        <div id="workbooks" class="workbooks" role="list"></div>
+        <p id="empty" class="empty">No managed workbooks yet.</p>
+      </section>
+    </main>
+    <script type="module" src="./sheets.js"></script>
+  </body>
+</html>

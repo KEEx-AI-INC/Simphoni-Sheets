@@ -1,0 +1,17 @@
+node_modules/
+dist/
+build/work/
+artifacts/*.tar.gz
+artifacts/*.zip
+artifacts/*.dmg
+artifacts/*.AppImage
+artifacts/*.sig
+artifacts/source/
+artifacts/sbom/
+artifacts/receipts/
+*.xlsx
+*.xls
+*.ods
+*.csv
+*.log
+.DS_Store

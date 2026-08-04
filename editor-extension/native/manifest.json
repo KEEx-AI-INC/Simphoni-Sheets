@@ -1,0 +1,13 @@
+{
+  "schema": "ai.simphoni.sheets.extension.v1",
+  "target": "libreoffice-calc",
+  "protocol": "ai.simphoni.sheets@1",
+  "entrypoint": "../src/protocol.js",
+  "integration": "loopback-hmac",
+  "operations": ["setValues", "setFormulas", "formatCells", "createOrUpdateChart"],
+  "arbitraryExecution": false,
+  "macros": false,
+  "requiresExplicitApproval": true,
+  "requiresTrustedEd25519Envelope": true,
+  "undoTransaction": "single"
+}
