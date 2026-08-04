@@ -17,16 +17,16 @@ services:
     cap_add:
       - CHOWN
       - FOWNER
+      - MKNOD
       - SETGID
       - SETUID
-    security_opt:
-      - no-new-privileges:true
+      - SYS_CHROOT
     tmpfs:
       - /tmp:size=2g,mode=1777
     volumes:
       - ${SIMPHONI_SHEETS_RUNTIME_ROOT:?Set the reviewed runtime root}/coolwsd:/var/lib/coolwsd
     healthcheck:
-      test: ["CMD-SHELL", "curl -fsS http://127.0.0.1:9980/hosting/discovery >/dev/null"]
+      test: ["CMD", "/usr/bin/coolwsd", "--probe", "--use-env-vars"]
       interval: 15s
       timeout: 5s
       retries: 12

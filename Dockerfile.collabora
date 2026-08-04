@@ -1,0 +1,30 @@
+ARG BASE_IMAGE=collabora/code@sha256:72d778f466330a7ff46a415759501d60e7eefc20b8756c9d4cd777f0144a522e
+
+FROM ${BASE_IMAGE} AS upstream
+
+FROM ${BASE_IMAGE}
+
+ARG SIMPHONI_SHEETS_VERSION
+ARG SIMPHONI_SHEETS_REVISION
+ARG COLLABORA_SOURCE_REVISION
+ARG LIBREOFFICE_SOURCE_REVISION
+
+COPY --from=upstream --chown=1001:1001 \
+  /usr/share/coolwsd/browser/dist/branding.css \
+  /usr/share/coolwsd/browser/dist/branding-upstream.css
+COPY --chown=1001:1001 branding/online/branding.css \
+  /usr/share/coolwsd/browser/dist/branding.css
+COPY --chown=1001:1001 branding/online/branding.js \
+  /usr/share/coolwsd/browser/dist/branding.js
+COPY --chown=1001:1001 branding/online/simphoni-sheets-wordmark.svg \
+  /usr/share/coolwsd/browser/dist/images/simphoni-sheets-wordmark.svg
+
+LABEL org.opencontainers.image.title="SimphoniSheets Collabora Online"
+LABEL org.opencontainers.image.description="Simphoni-branded Collabora Online editor for SimphoniSheets"
+LABEL org.opencontainers.image.url="https://simphoni.ai/sheets"
+LABEL org.opencontainers.image.source="https://github.com/KEEx-AI-INC/Simphoni-Sheets"
+LABEL org.opencontainers.image.licenses="MPL-2.0 AND LGPL-3.0-or-later"
+LABEL org.opencontainers.image.version="${SIMPHONI_SHEETS_VERSION}"
+LABEL org.opencontainers.image.revision="${SIMPHONI_SHEETS_REVISION}"
+LABEL ai.simphoni.sheets.collabora-source-revision="${COLLABORA_SOURCE_REVISION}"
+LABEL ai.simphoni.sheets.libreoffice-source-revision="${LIBREOFFICE_SOURCE_REVISION}"

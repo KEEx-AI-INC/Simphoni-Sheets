@@ -12,3 +12,8 @@
 - Raw workbook contents, selections, prompts, keys, and share secrets are
   prohibited from logs, analytics, receipts, and crash reports.
 - Macro-enabled files and arbitrary execution surfaces are disabled for beta.
+- The hosted container drops all ambient capabilities and restores only the
+  six capabilities required by Collabora's sandbox helper. Collabora cannot run
+  with Docker `no-new-privileges`; the compensating boundaries are an immutable
+  digest, non-root image user, loopback-only publish, Caddy TLS, WOPI allowlist,
+  and no direct workbook-storage mount.

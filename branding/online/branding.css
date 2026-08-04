@@ -1,0 +1,35 @@
+/* SPDX-License-Identifier: MPL-2.0 */
+@import url("branding-upstream.css");
+
+:root {
+  --simphoni-sheets-violet: #6d42e5;
+  --simphoni-sheets-magenta: #ec4aa8;
+  --simphoni-sheets-ink: #180f2b;
+  --simphoni-sheets-paper: #fbf9ff;
+  --color-primary: var(--simphoni-sheets-violet);
+  --color-primary-text: #ffffff;
+  --spinner-logo: url("images/simphoni-sheets-wordmark.svg");
+}
+
+.img-coda-app-logo,
+html[data-theme="dark"] .img-coda-app-logo {
+  background: url("images/simphoni-sheets-wordmark.svg") no-repeat center / contain !important;
+  min-width: 164px;
+}
+
+#product-logo,
+html[data-theme="dark"] #product-logo,
+html:not([data-theme="dark"]) .document-logo,
+html[data-theme="dark"] .document-logo {
+  background: url("images/simphoni-sheets-wordmark.svg") no-repeat center / contain !important;
+}
+
+#about-dialog-info a,
+#document-header > a {
+  color: var(--simphoni-sheets-violet);
+}
+
+html[data-theme="dark"] {
+  --simphoni-sheets-paper: #f7f2ff;
+  --simphoni-sheets-ink: #10071d;
+}
