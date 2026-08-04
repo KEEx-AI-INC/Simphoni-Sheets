@@ -11,6 +11,7 @@ read_lock() {
 
 base_digest="collabora/code@$(read_lock referenceCodeImage.linuxArm64Digest)"
 collabora_revision="$(read_lock collaboraOnline.revision)"
+packaging_revision="$(read_lock collaboraCodePackaging.revision)"
 libreoffice_revision="$(read_lock libreOfficeCore.revision)"
 product_version="$(node -p "require('$repo_root/package.json').version")"
 if [ -n "$(git -C "$repo_root" status --porcelain --untracked-files=normal)" ]; then
@@ -32,6 +33,7 @@ docker build \
   --build-arg "SIMPHONI_SHEETS_VERSION=$product_version" \
   --build-arg "SIMPHONI_SHEETS_REVISION=$product_revision" \
   --build-arg "COLLABORA_SOURCE_REVISION=$collabora_revision" \
+  --build-arg "COLLABORA_PACKAGING_REVISION=$packaging_revision" \
   --build-arg "LIBREOFFICE_SOURCE_REVISION=$libreoffice_revision" \
   --tag "$image_tag" \
   --file "$repo_root/Dockerfile.collabora" \
@@ -39,9 +41,9 @@ docker build \
 
 image_id="$(docker image inspect "$image_tag" --format '{{.Id}}')"
 mkdir -p "$build_root"
-node - "$build_root/collabora-candidate.json" "$image_tag" "$image_id" "$base_digest" "$product_version" "$product_revision" "$collabora_revision" "$libreoffice_revision" <<'NODE'
+node - "$build_root/collabora-candidate.json" "$image_tag" "$image_id" "$base_digest" "$product_version" "$product_revision" "$collabora_revision" "$packaging_revision" "$libreoffice_revision" <<'NODE'
 const fs = require('fs');
-const [output, imageTag, imageId, baseDigest, version, revision, collaboraRevision, libreOfficeRevision] = process.argv.slice(2);
+const [output, imageTag, imageId, baseDigest, version, revision, collaboraRevision, collaboraPackagingRevision, libreOfficeRevision] = process.argv.slice(2);
 fs.writeFileSync(output, `${JSON.stringify({
   schema: 'ai.simphoni.sheets.collabora-candidate.v1',
   status: 'unsigned-candidate',
@@ -51,6 +53,7 @@ fs.writeFileSync(output, `${JSON.stringify({
   version,
   revision,
   collaboraRevision,
+  collaboraPackagingRevision,
   libreOfficeRevision,
 }, null, 2)}\n`);
 NODE

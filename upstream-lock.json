@@ -2,6 +2,11 @@
   "schema": "ai.simphoni.sheets.upstreams.v1",
   "updatedAt": "2026-08-04T00:00:00Z",
   "collaboraOnline": {
+    "repository": "https://gerrit.collaboraoffice.com/online",
+    "revision": "b259fa49a56c0a41fbeb4e5f07333ce2651a3f22",
+    "releaseTag": "cp-26.04.2-4"
+  },
+  "collaboraCodePackaging": {
     "repository": "https://github.com/CollaboraOnline/online.git",
     "revision": "bff14def46c1092fec25fee4ea4acf8daced268d"
   },

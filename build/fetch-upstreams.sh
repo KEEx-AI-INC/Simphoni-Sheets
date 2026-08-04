@@ -17,6 +17,7 @@ fetch_one() {
   if [ ! -d "$target/.git" ]; then
     git clone --filter=blob:none --no-checkout "$repository" "$target"
   fi
+  git -C "$target" remote set-url origin "$repository"
   git -C "$target" fetch --depth=1 origin "$revision"
   git -C "$target" checkout --detach "$revision"
   resolved="$(git -C "$target" rev-parse HEAD)"
@@ -28,10 +29,13 @@ fetch_one() {
 
 collabora_repository="$(read_lock collaboraOnline.repository)"
 collabora_revision="$(read_lock collaboraOnline.revision)"
+packaging_repository="$(read_lock collaboraCodePackaging.repository)"
+packaging_revision="$(read_lock collaboraCodePackaging.revision)"
 libreoffice_repository="$(read_lock libreOfficeCore.repository)"
 libreoffice_revision="$(read_lock libreOfficeCore.revision)"
 
 fetch_one collabora-online "$collabora_repository" "$collabora_revision"
+fetch_one collabora-code-packaging "$packaging_repository" "$packaging_revision"
 fetch_one libreoffice-core "$libreoffice_repository" "$libreoffice_revision"
 
 echo "Pinned upstream source checkouts are ready under $build_root."

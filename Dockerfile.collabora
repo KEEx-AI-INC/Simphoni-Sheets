@@ -7,6 +7,7 @@ FROM ${BASE_IMAGE}
 ARG SIMPHONI_SHEETS_VERSION
 ARG SIMPHONI_SHEETS_REVISION
 ARG COLLABORA_SOURCE_REVISION
+ARG COLLABORA_PACKAGING_REVISION
 ARG LIBREOFFICE_SOURCE_REVISION
 
 COPY --from=upstream --chown=1001:1001 \
@@ -27,4 +28,5 @@ LABEL org.opencontainers.image.licenses="MPL-2.0 AND LGPL-3.0-or-later"
 LABEL org.opencontainers.image.version="${SIMPHONI_SHEETS_VERSION}"
 LABEL org.opencontainers.image.revision="${SIMPHONI_SHEETS_REVISION}"
 LABEL ai.simphoni.sheets.collabora-source-revision="${COLLABORA_SOURCE_REVISION}"
+LABEL ai.simphoni.sheets.collabora-packaging-revision="${COLLABORA_PACKAGING_REVISION}"
 LABEL ai.simphoni.sheets.libreoffice-source-revision="${LIBREOFFICE_SOURCE_REVISION}"
