@@ -16,7 +16,11 @@ fetch_one() {
   fetch_ref="${4:-$revision}"
   target="$build_root/$name"
   if [ ! -d "$target/.git" ]; then
-    git clone --filter=blob:none --no-checkout "$repository" "$target"
+    if [[ "$fetch_ref" == refs/tags/* ]]; then
+      git clone --depth=1 --no-checkout --branch "${fetch_ref#refs/tags/}" "$repository" "$target"
+    else
+      git clone --filter=blob:none --no-checkout "$repository" "$target"
+    fi
   fi
   git -C "$target" remote set-url origin "$repository"
   git -C "$target" fetch --depth=1 origin "$fetch_ref"
