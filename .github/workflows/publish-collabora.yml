@@ -25,7 +25,10 @@ env:
 jobs:
   publish:
     name: Publish signed linux-arm64 candidate
-    if: github.ref == 'refs/heads/main' && inputs.confirm_publish == 'PUBLISH'
+    if: >-
+      github.ref == 'refs/heads/main' &&
+      inputs.confirm_publish == 'PUBLISH' &&
+      vars.SHEETS_PUBLISH_ENABLED == 'true'
     environment: sheets-beta
     runs-on: ubuntu-latest
     steps:

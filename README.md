@@ -46,11 +46,14 @@ contains its SHA-256 digest, SBOM path, source revision, signature, and build
 receipt.
 
 Repository maintainers can manually run **Publish pinned Collabora candidate**
-from the Actions tab on `main` and type `PUBLISH`. The guarded workflow builds
-only `linux/arm64`, pushes a unique revision-qualified tag to GHCR, attaches
-SBOM and provenance attestations, signs the immutable digest with GitHub OIDC,
-and uploads an unpromoted candidate receipt. It never edits the artifact lock
-or enables a runtime flag; promotion remains a separate reviewed commit.
+from the Actions tab on `main` and type `PUBLISH` after the protected
+`sheets-beta` environment exists and the repository variable
+`SHEETS_PUBLISH_ENABLED` is explicitly set to `true`. The guarded workflow
+builds only `linux/arm64`, pushes a unique revision-qualified tag to GHCR,
+attaches SBOM and provenance attestations, signs the immutable digest with
+GitHub OIDC, and uploads an unpromoted candidate receipt. It never edits the
+artifact lock or enables a runtime flag; promotion remains a separate reviewed
+commit.
 
 ## License
 

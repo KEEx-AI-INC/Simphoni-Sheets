@@ -35,12 +35,14 @@ distribution or deployment gate.
 ## Hosted candidate publication
 
 `.github/workflows/publish-collabora.yml` is a manual candidate-publication
-lane. It accepts only `main` with the explicit `PUBLISH` confirmation, builds
-the pinned `linux/arm64` image, emits BuildKit SBOM/provenance and GitHub build
-provenance attestations, signs the immutable digest with a keyless Cosign
-identity, verifies that identity, and uploads a receipt. The GHCR tag includes
-both the package version and source commit so retries cannot silently reuse a
-different source revision.
+lane. It accepts only `main` with the explicit `PUBLISH` confirmation and a
+repository variable `SHEETS_PUBLISH_ENABLED=true`. Maintainers must configure
+the protected `sheets-beta` environment before setting that variable. The lane
+builds the pinned `linux/arm64` image, emits BuildKit SBOM/provenance and GitHub
+build provenance attestations, signs the immutable digest with a keyless
+Cosign identity, verifies that identity, and uploads a receipt. The GHCR tag
+includes both the package version and source commit so retries cannot silently
+reuse a different source revision.
 
 The result remains a candidate. A reviewer must verify the digest, signature,
 attestations, source archives, smoke evidence, and rollback target before
