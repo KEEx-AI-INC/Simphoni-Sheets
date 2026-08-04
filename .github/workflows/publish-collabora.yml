@@ -1,0 +1,168 @@
+name: Publish pinned Collabora candidate
+
+on:
+  workflow_dispatch:
+    inputs:
+      confirm_publish:
+        description: Type PUBLISH to build, attest, sign, and push an immutable candidate
+        required: true
+        type: string
+
+concurrency:
+  group: simphoni-sheets-collabora-publish-${{ github.ref }}
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+  packages: write
+  attestations: write
+  id-token: write
+
+env:
+  REGISTRY: ghcr.io
+  IMAGE_REPOSITORY: keex-ai-inc/simphoni-sheets-collabora
+
+jobs:
+  publish:
+    name: Publish signed linux-arm64 candidate
+    if: github.ref == 'refs/heads/main' && inputs.confirm_publish == 'PUBLISH'
+    environment: sheets-beta
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out the exact source revision
+        uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+
+      - name: Validate contracts and build inputs
+        run: |
+          npm install --ignore-scripts --package-lock=false
+          npm test
+          npm run check
+          bash -n build/*.sh
+
+      - name: Resolve pinned build metadata
+        id: metadata
+        shell: bash
+        run: |
+          node <<'NODE' >> "$GITHUB_OUTPUT"
+          const fs = require('fs');
+          const pkg = JSON.parse(fs.readFileSync('package.json', 'utf8'));
+          const lock = JSON.parse(fs.readFileSync('upstream-lock.json', 'utf8'));
+          const revision = process.env.GITHUB_SHA;
+          const shortRevision = revision.slice(0, 12);
+          console.log(`version=${pkg.version}`);
+          console.log(`revision=${revision}`);
+          console.log(`tag=${pkg.version}-${shortRevision}-arm64`);
+          console.log(`image=${process.env.REGISTRY}/${process.env.IMAGE_REPOSITORY}`);
+          console.log(`base_image=collabora/code@${lock.referenceCodeImage.linuxArm64Digest}`);
+          console.log(`collabora_revision=${lock.collaboraOnline.revision}`);
+          console.log(`packaging_revision=${lock.collaboraCodePackaging.revision}`);
+          console.log(`libreoffice_revision=${lock.libreOfficeCore.revision}`);
+          NODE
+
+      - name: Enable linux-arm64 emulation
+        uses: docker/setup-qemu-action@c7c53464625b32c7a7e944ae62b3e17d2b600130 # v3
+
+      - name: Set up Buildx
+        uses: docker/setup-buildx-action@8d2750c68a42422c14e847fe6c8ac0403b4cbd6f # v3
+
+      - name: Log in to GHCR
+        uses: docker/login-action@c94ce9fb468520275223c153574b00df6fe4bcc9 # v3
+        with:
+          registry: ${{ env.REGISTRY }}
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Build and push pinned image
+        id: push
+        uses: docker/build-push-action@53b7df96c91f9c12dcc8a07bcb9ccacbed38856a # v7
+        with:
+          context: .
+          file: ./Dockerfile.collabora
+          platforms: linux/arm64
+          push: true
+          tags: ${{ steps.metadata.outputs.image }}:${{ steps.metadata.outputs.tag }}
+          provenance: mode=max
+          sbom: true
+          build-args: |
+            BASE_IMAGE=${{ steps.metadata.outputs.base_image }}
+            SIMPHONI_SHEETS_VERSION=${{ steps.metadata.outputs.version }}
+            SIMPHONI_SHEETS_REVISION=${{ steps.metadata.outputs.revision }}
+            COLLABORA_SOURCE_REVISION=${{ steps.metadata.outputs.collabora_revision }}
+            COLLABORA_PACKAGING_REVISION=${{ steps.metadata.outputs.packaging_revision }}
+            LIBREOFFICE_SOURCE_REVISION=${{ steps.metadata.outputs.libreoffice_revision }}
+
+      - name: Attest GitHub build provenance
+        uses: actions/attest@508db95dd578ae2727ebd6217d5ba78e4fbda05d # v4
+        with:
+          subject-name: ${{ steps.metadata.outputs.image }}
+          subject-digest: ${{ steps.push.outputs.digest }}
+          push-to-registry: true
+
+      - name: Install Cosign
+        uses: sigstore/cosign-installer@faadad0cce49287aee09b3a48701e75088a2c6ad # v4.0.0
+
+      - name: Sign and verify the immutable digest
+        env:
+          IMAGE: ${{ steps.metadata.outputs.image }}
+          DIGEST: ${{ steps.push.outputs.digest }}
+        run: |
+          cosign sign --yes "$IMAGE@$DIGEST"
+          cosign verify \
+            --certificate-identity-regexp '^https://github.com/KEEx-AI-INC/Simphoni-Sheets/.github/workflows/publish-collabora.yml@refs/heads/main$' \
+            --certificate-oidc-issuer 'https://token.actions.githubusercontent.com' \
+            "$IMAGE@$DIGEST"
+
+      - name: Write candidate receipt
+        env:
+          IMAGE: ${{ steps.metadata.outputs.image }}
+          TAG: ${{ steps.metadata.outputs.tag }}
+          DIGEST: ${{ steps.push.outputs.digest }}
+          VERSION: ${{ steps.metadata.outputs.version }}
+          REVISION: ${{ steps.metadata.outputs.revision }}
+          BASE_IMAGE: ${{ steps.metadata.outputs.base_image }}
+          COLLABORA_REVISION: ${{ steps.metadata.outputs.collabora_revision }}
+          PACKAGING_REVISION: ${{ steps.metadata.outputs.packaging_revision }}
+          LIBREOFFICE_REVISION: ${{ steps.metadata.outputs.libreoffice_revision }}
+        run: |
+          mkdir -p release-records
+          node <<'NODE'
+          const fs = require('fs');
+          const receipt = {
+            schema: 'ai.simphoni.sheets.collabora-published-candidate.v1',
+            status: 'published-candidate',
+            image: process.env.IMAGE,
+            tag: process.env.TAG,
+            digest: process.env.DIGEST,
+            platform: 'linux/arm64',
+            version: process.env.VERSION,
+            revision: process.env.REVISION,
+            baseImage: process.env.BASE_IMAGE,
+            collaboraRevision: process.env.COLLABORA_REVISION,
+            collaboraPackagingRevision: process.env.PACKAGING_REVISION,
+            libreOfficeRevision: process.env.LIBREOFFICE_REVISION,
+            githubRun: `${process.env.GITHUB_SERVER_URL}/${process.env.GITHUB_REPOSITORY}/actions/runs/${process.env.GITHUB_RUN_ID}`,
+            promotionStatus: 'not-promoted',
+          };
+          fs.writeFileSync('release-records/collabora-published-candidate.json', `${JSON.stringify(receipt, null, 2)}\n`);
+          NODE
+          sha256sum release-records/collabora-published-candidate.json > release-records/SHA256SUMS
+
+      - name: Upload candidate receipt
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        with:
+          name: collabora-candidate-${{ steps.metadata.outputs.tag }}
+          path: release-records/
+          if-no-files-found: error
+          retention-days: 90
+
+      - name: Summarize the unpromoted candidate
+        run: |
+          {
+            echo '## SimphoniSheets Collabora candidate'
+            echo
+            echo "- Image: \`${{ steps.metadata.outputs.image }}@${{ steps.push.outputs.digest }}\`"
+            echo '- Platform: `linux/arm64`'
+            echo '- Signature: keyless Cosign signature verified'
+            echo '- Attestations: BuildKit SBOM/provenance plus GitHub build provenance'
+            echo '- Promotion: blocked until a reviewed artifact-lock commit pins this digest'
+          } >> "$GITHUB_STEP_SUMMARY"

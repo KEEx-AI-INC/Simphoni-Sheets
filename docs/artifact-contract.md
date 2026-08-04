@@ -31,3 +31,17 @@ rely on Caddy for public TLS and route separation.
 
 An `unbuilt` lock is valid only for source development and cannot pass a
 distribution or deployment gate.
+
+## Hosted candidate publication
+
+`.github/workflows/publish-collabora.yml` is a manual candidate-publication
+lane. It accepts only `main` with the explicit `PUBLISH` confirmation, builds
+the pinned `linux/arm64` image, emits BuildKit SBOM/provenance and GitHub build
+provenance attestations, signs the immutable digest with a keyless Cosign
+identity, verifies that identity, and uploads a receipt. The GHCR tag includes
+both the package version and source commit so retries cannot silently reuse a
+different source revision.
+
+The result remains a candidate. A reviewer must verify the digest, signature,
+attestations, source archives, smoke evidence, and rollback target before
+replacing the `unbuilt` entry in `artifacts/artifacts.lock.json`.
