@@ -13,12 +13,13 @@ fetch_one() {
   name="$1"
   repository="$2"
   revision="$3"
+  fetch_ref="${4:-$revision}"
   target="$build_root/$name"
   if [ ! -d "$target/.git" ]; then
     git clone --filter=blob:none --no-checkout "$repository" "$target"
   fi
   git -C "$target" remote set-url origin "$repository"
-  git -C "$target" fetch --depth=1 origin "$revision"
+  git -C "$target" fetch --depth=1 origin "$fetch_ref"
   git -C "$target" checkout --detach "$revision"
   resolved="$(git -C "$target" rev-parse HEAD)"
   if [ "$resolved" != "$revision" ]; then
@@ -29,12 +30,13 @@ fetch_one() {
 
 collabora_repository="$(read_lock collaboraOnline.repository)"
 collabora_revision="$(read_lock collaboraOnline.revision)"
+collabora_release_tag="$(read_lock collaboraOnline.releaseTag)"
 packaging_repository="$(read_lock collaboraCodePackaging.repository)"
 packaging_revision="$(read_lock collaboraCodePackaging.revision)"
 libreoffice_repository="$(read_lock libreOfficeCore.repository)"
 libreoffice_revision="$(read_lock libreOfficeCore.revision)"
 
-fetch_one collabora-online "$collabora_repository" "$collabora_revision"
+fetch_one collabora-online "$collabora_repository" "$collabora_revision" "refs/tags/$collabora_release_tag"
 fetch_one collabora-code-packaging "$packaging_repository" "$packaging_revision"
 fetch_one libreoffice-core "$libreoffice_repository" "$libreoffice_revision"
 
