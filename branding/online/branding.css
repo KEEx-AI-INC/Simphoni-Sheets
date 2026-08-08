@@ -99,3 +99,47 @@ html[data-theme="dark"] {
 #toolbar-down button:hover {
   background-color: var(--simphoni-sheets-control-hover) !important;
 }
+
+/* Calc's notebookbar uses several nested surfaces with light-theme-specific
+ * selectors, so target the rendered containers instead of relying on tokens
+ * alone. Keep the workspace visibly distinct from its #110011 sheet canvas. */
+html .main-nav.hasnotebookbar,
+html .main-nav.hasnotebookbar .notebookbar-tabs-container,
+html .main-nav.hasnotebookbar .notebookbar-shortcuts-bar,
+#toolbar-wrapper.hasnotebookbar,
+#toolbar-wrapper.hasnotebookbar > #toolbar-row,
+#toolbar-wrapper.hasnotebookbar .notebookbar.ui-tabs-content,
+#toolbar-wrapper.hasnotebookbar .notebookbar.ui-tabpage,
+#toolbar-wrapper.hasnotebookbar .notebookbar.root-container,
+#formulabar-row,
+#spreadsheet-toolbar,
+#toolbar-down,
+#sidebar-dock-wrapper,
+#sidebar-dock-wrapper .ui-content,
+#sidebar-dock-wrapper .notebookbar,
+#navigator-dock-wrapper {
+  background: var(--simphoni-sheets-control) !important;
+  background-color: var(--simphoni-sheets-control) !important;
+  color: var(--simphoni-sheets-control-text) !important;
+}
+
+html .main-nav.hasnotebookbar button.ui-tab.notebookbar,
+html .main-nav.hasnotebookbar .ui-tab.selected.notebookbar,
+html .main-nav.hasnotebookbar .ui-tab.selected.notebookbar:hover,
+#toolbar-wrapper.hasnotebookbar .ui-content,
+#toolbar-wrapper.hasnotebookbar .notebookbar.ui-listbox,
+#toolbar-wrapper.hasnotebookbar .notebookbar.ui-combobox,
+#sidebar-dock-wrapper .ui-listbox,
+#sidebar-dock-wrapper .ui-combobox,
+#sidebar-dock-wrapper .select2-selection__rendered {
+  background-color: var(--simphoni-sheets-control-raised) !important;
+  border-color: var(--simphoni-sheets-control-border) !important;
+  color: var(--simphoni-sheets-control-text) !important;
+}
+
+#toolbar-wrapper.hasnotebookbar .ui-content:hover,
+#toolbar-wrapper.hasnotebookbar button:hover,
+#sidebar-dock-wrapper .ui-content:hover,
+#sidebar-dock-wrapper button:hover {
+  background-color: var(--simphoni-sheets-control-hover) !important;
+}
