@@ -3,6 +3,9 @@ var brandProductName = 'SimphoniSheets';
 var brandProductURL = 'https://simphoni.ai/sheets';
 var brandProductFAQURL = 'https://simphoni.ai/support';
 
+// Default to dark; Collabora's theme picker can still change the active theme.
+document.documentElement.setAttribute('data-theme', 'dark');
+
 window.addEventListener('load', function () {
   function wireBranding() {
     var logo = document.querySelector('#document-header > a');

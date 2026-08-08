@@ -6,9 +6,42 @@
   --simphoni-sheets-magenta: #ec4aa8;
   --simphoni-sheets-ink: #180f2b;
   --simphoni-sheets-paper: #fbf9ff;
+  --simphoni-sheets-control: #26142f;
+  --simphoni-sheets-control-raised: #321a3e;
+  --simphoni-sheets-control-hover: #412454;
+  --simphoni-sheets-control-border: #76538f;
+  --simphoni-sheets-control-text: #f7f0ff;
   --color-primary: var(--simphoni-sheets-violet);
   --color-primary-text: #ffffff;
   --spinner-logo: url("images/simphoni-sheets-wordmark.svg");
+
+  /* The workbook canvas is #110011; controls remain deliberately lighter. */
+  --color-main-background: var(--simphoni-sheets-control);
+  --color-background: var(--simphoni-sheets-control);
+  --color-background-dark: #1d1025;
+  --color-background-darker: #180c1f;
+  --color-background-lighter: var(--simphoni-sheets-control-raised);
+  --color-background-hover: var(--simphoni-sheets-control-hover);
+  --color-main-text: var(--simphoni-sheets-control-text);
+  --color-text-dark: var(--simphoni-sheets-control-text);
+  --color-text-darker: var(--simphoni-sheets-control-text);
+  --color-text-light: #d9c7e8;
+  --color-text-lighter: #bda6d1;
+  --color-border: var(--simphoni-sheets-control-border);
+  --color-border-dark: #5c3d72;
+  --color-border-darker: #4a315d;
+  --color-border-lighter: #9575ae;
+  --color-toolbar-border: #5c3d72;
+  --color-calc-header: var(--simphoni-sheets-control);
+  --color-calc-header-hover: var(--simphoni-sheets-control-hover);
+  --color-calc-header-selected: #5c3976;
+  --color-text-calc-header: var(--simphoni-sheets-control-text);
+  --color-text-calc-header-selected: #ffffff;
+  --color-calc-grid: #d6b4ff;
+  --co-bg-body: var(--simphoni-sheets-control);
+  --co-color-background-light: var(--simphoni-sheets-control-raised);
+  --co-color-background-hover: var(--simphoni-sheets-control-hover);
+  --co-color-main-text: var(--simphoni-sheets-control-text);
 }
 
 .img-coda-app-logo,
@@ -32,4 +65,37 @@ html[data-theme="dark"] .document-logo {
 html[data-theme="dark"] {
   --simphoni-sheets-paper: #f7f2ff;
   --simphoni-sheets-ink: #10071d;
+}
+
+#toolbar-wrapper,
+#toolbar-down:not(.mobile),
+#sidebar-dock-wrapper,
+#navigator-dock-wrapper,
+.cool-ruler,
+.cool-ruler-face,
+.cool-ruler-margin,
+.ui-dialog-content,
+.jsdialog-container .ui-dialog-titlebar {
+  background-color: var(--simphoni-sheets-control) !important;
+  color: var(--simphoni-sheets-control-text);
+}
+
+#toolbar-wrapper input,
+#toolbar-wrapper select,
+#toolbar-wrapper .ui-listbox,
+#toolbar-wrapper .ui-combobox,
+#toolbar-wrapper .select2-selection__rendered,
+#sidebar-dock-wrapper input,
+#sidebar-dock-wrapper select,
+#sidebar-dock-wrapper .ui-listbox,
+#sidebar-dock-wrapper .ui-combobox {
+  background-color: var(--simphoni-sheets-control-raised) !important;
+  border-color: var(--simphoni-sheets-control-border) !important;
+  color: var(--simphoni-sheets-control-text) !important;
+}
+
+#toolbar-wrapper button:hover,
+#sidebar-dock-wrapper button:hover,
+#toolbar-down button:hover {
+  background-color: var(--simphoni-sheets-control-hover) !important;
 }
