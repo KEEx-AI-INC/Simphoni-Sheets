@@ -1,5 +1,5 @@
 /* SPDX-License-Identifier: MPL-2.0 */
-var brandProductName = 'SimphoniSheets';
+var brandProductName = 'Simphoni Sheets';
 var brandProductURL = 'https://simphoni.ai/sheets';
 var brandProductFAQURL = 'https://simphoni.ai/support';
 
@@ -9,12 +9,13 @@ var brandProductFAQURL = 'https://simphoni.ai/support';
 function applyDarkDefault() {
   var root = document.documentElement;
   root.setAttribute('data-theme', 'dark');
-  root.style.setProperty('--color-main-background', '#1f1a20', 'important');
-  root.style.setProperty('--color-background', '#1f1a20', 'important');
-  root.style.setProperty('--color-background-lighter', '#321a3e', 'important');
-  root.style.setProperty('--color-background-hover', '#412454', 'important');
-  root.style.setProperty('--color-border', '#76538f', 'important');
-  root.style.setProperty('--color-main-text', '#f7f0ff', 'important');
+  root.style.setProperty('--color-main-background', '#151216', 'important');
+  root.style.setProperty('--color-background', '#151216', 'important');
+  root.style.setProperty('--color-background-lighter', '#1f1a20', 'important');
+  root.style.setProperty('--color-background-hover', '#2b252d', 'important');
+  root.style.setProperty('--color-border', '#56475a', 'important');
+  root.style.setProperty('--color-main-text', '#f2e6ff', 'important');
+  root.style.setProperty('--color-calc-grid', '#0d0d0d', 'important');
 }
 
 applyDarkDefault();

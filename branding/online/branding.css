@@ -4,40 +4,48 @@
 :root {
   --simphoni-sheets-violet: #6d42e5;
   --simphoni-sheets-magenta: #ec4aa8;
-  --simphoni-sheets-ink: #180f2b;
-  --simphoni-sheets-paper: #fbf9ff;
-  --simphoni-sheets-control: #1f1a20;
-  --simphoni-sheets-control-raised: #321a3e;
-  --simphoni-sheets-control-hover: #412454;
-  --simphoni-sheets-control-border: #76538f;
-  --simphoni-sheets-control-text: #f7f0ff;
+  --simphoni-sheets-ink: #0d0d0d;
+  --simphoni-sheets-paper: #f2e6ff;
+  --simphoni-sheets-canvas: #181b1b;
+  --simphoni-sheets-grid: #0d0d0d;
+  --simphoni-sheets-cell-text: #e9fff8;
+  --simphoni-sheets-control: #151216;
+  --simphoni-sheets-control-raised: #1f1a20;
+  --simphoni-sheets-control-hover: #2b252d;
+  --simphoni-sheets-control-border: #56475a;
+  --simphoni-sheets-control-text: #f2e6ff;
+  --simphoni-sheets-control-muted-text: #cfbdd8;
+  --simphoni-sheets-scroll-track: #151216;
+  --simphoni-sheets-scroll-thumb: #4d3d52;
+  --simphoni-sheets-scroll-thumb-hover: #6b5170;
   --color-primary: var(--simphoni-sheets-violet);
-  --color-primary-text: #ffffff;
+  --color-primary-text: var(--simphoni-sheets-cell-text);
   --spinner-logo: url("images/simphoni-sheets-wordmark.svg");
 
-  /* The workbook canvas is #110011; controls remain deliberately lighter. */
+  /* The workbook file owns the cell fill/text/borders. These tokens make the
+   * surrounding Collabora controls read as a related, intentionally darker UI. */
   --color-main-background: var(--simphoni-sheets-control);
   --color-background: var(--simphoni-sheets-control);
-  --color-background-dark: #1d1025;
-  --color-background-darker: #180c1f;
+  --color-background-dark: #100e10;
+  --color-background-darker: #0d0d0d;
   --color-background-lighter: var(--simphoni-sheets-control-raised);
   --color-background-hover: var(--simphoni-sheets-control-hover);
   --color-main-text: var(--simphoni-sheets-control-text);
   --color-text-dark: var(--simphoni-sheets-control-text);
   --color-text-darker: var(--simphoni-sheets-control-text);
-  --color-text-light: #d9c7e8;
-  --color-text-lighter: #bda6d1;
+  --color-text-light: var(--simphoni-sheets-control-muted-text);
+  --color-text-lighter: #a993b2;
   --color-border: var(--simphoni-sheets-control-border);
-  --color-border-dark: #5c3d72;
-  --color-border-darker: #4a315d;
-  --color-border-lighter: #9575ae;
-  --color-toolbar-border: #5c3d72;
+  --color-border-dark: #423746;
+  --color-border-darker: #302834;
+  --color-border-lighter: #705e74;
+  --color-toolbar-border: #423746;
   --color-calc-header: var(--simphoni-sheets-control);
   --color-calc-header-hover: var(--simphoni-sheets-control-hover);
-  --color-calc-header-selected: #5c3976;
+  --color-calc-header-selected: var(--simphoni-sheets-control-raised);
   --color-text-calc-header: var(--simphoni-sheets-control-text);
-  --color-text-calc-header-selected: #ffffff;
-  --color-calc-grid: #d6b4ff;
+  --color-text-calc-header-selected: var(--simphoni-sheets-control-text);
+  --color-calc-grid: var(--simphoni-sheets-grid);
   --co-bg-body: var(--simphoni-sheets-control);
   --co-color-background-light: var(--simphoni-sheets-control-raised);
   --co-color-background-hover: var(--simphoni-sheets-control-hover);
@@ -47,14 +55,26 @@
 .img-coda-app-logo,
 html[data-theme="dark"] .img-coda-app-logo {
   background: url("images/simphoni-sheets-wordmark.svg") no-repeat center / contain !important;
-  min-width: 164px;
+  width: clamp(218px, 18vw, 288px);
+  min-width: 218px;
+  min-height: 48px;
 }
 
 #product-logo,
 html[data-theme="dark"] #product-logo,
 html:not([data-theme="dark"]) .document-logo,
-html[data-theme="dark"] .document-logo {
+html[data-theme="dark"] .document-logo,
+#toolbar-logo {
   background: url("images/simphoni-sheets-wordmark.svg") no-repeat center / contain !important;
+}
+
+@media (max-width: 760px) {
+  .img-coda-app-logo,
+  html[data-theme="dark"] .img-coda-app-logo {
+    width: 172px;
+    min-width: 172px;
+    min-height: 38px;
+  }
 }
 
 #about-dialog-info a,
@@ -63,8 +83,50 @@ html[data-theme="dark"] .document-logo {
 }
 
 html[data-theme="dark"] {
-  --simphoni-sheets-paper: #f7f2ff;
-  --simphoni-sheets-ink: #10071d;
+  --simphoni-sheets-paper: var(--simphoni-sheets-control-text);
+  --simphoni-sheets-ink: #0d0d0d;
+}
+
+html,
+body,
+#toolbar-wrapper,
+#sidebar-dock-wrapper,
+#navigator-dock-wrapper,
+.ui-dialog-content {
+  scrollbar-color: var(--simphoni-sheets-scroll-thumb) var(--simphoni-sheets-scroll-track);
+  scrollbar-width: thin;
+}
+
+html ::-webkit-scrollbar,
+body ::-webkit-scrollbar {
+  width: 12px;
+  height: 12px;
+}
+
+html ::-webkit-scrollbar-track,
+body ::-webkit-scrollbar-track {
+  background: var(--simphoni-sheets-scroll-track);
+}
+
+html ::-webkit-scrollbar-thumb,
+body ::-webkit-scrollbar-thumb {
+  background: var(--simphoni-sheets-scroll-thumb);
+  border: 3px solid var(--simphoni-sheets-scroll-track);
+  border-radius: 999px;
+}
+
+html ::-webkit-scrollbar-thumb:hover,
+body ::-webkit-scrollbar-thumb:hover {
+  background: var(--simphoni-sheets-scroll-thumb-hover);
+}
+
+/* Show the workbook palette during canvas startup and around empty sheet space.
+ * The generated XLSX/ODS template provides the persistent cell fill, border,
+ * and mint text style once Calc takes control of the canvas. */
+#document-container,
+#map,
+.leaflet-container {
+  background-color: var(--simphoni-sheets-canvas) !important;
 }
 
 #toolbar-wrapper,
@@ -94,6 +156,26 @@ html[data-theme="dark"] {
   color: var(--simphoni-sheets-control-text) !important;
 }
 
+#toolbar-wrapper button,
+#toolbar-down button,
+#sidebar-dock-wrapper button,
+#navigator-dock-wrapper button,
+.ui-dialog button,
+.jsdialog button,
+.jsdialog-container button {
+  background-color: var(--simphoni-sheets-control-raised) !important;
+  border-color: var(--simphoni-sheets-control-border) !important;
+  color: var(--simphoni-sheets-control-text) !important;
+}
+
+#toolbar-wrapper :is(label, legend, .ui-content, .ui-combobox-text, .ui-listbox, .ui-tab, .menu-entry, .toolbar-label),
+#toolbar-down :is(label, legend, .ui-content, .ui-combobox-text, .ui-listbox, .ui-tab, .menu-entry, .toolbar-label),
+#sidebar-dock-wrapper :is(h1, h2, h3, h4, label, legend, p, span, .ui-content, .ui-combobox-text, .ui-listbox, .menu-entry, .toolbar-label),
+#navigator-dock-wrapper :is(h1, h2, h3, h4, label, legend, p, span, .ui-content, .ui-combobox-text, .ui-listbox, .menu-entry, .toolbar-label),
+.ui-dialog :is(h1, h2, h3, h4, label, legend, p, .ui-content, .ui-combobox-text, .ui-listbox, .menu-entry, .toolbar-label) {
+  color: var(--simphoni-sheets-control-text) !important;
+}
+
 #toolbar-wrapper button:hover,
 #sidebar-dock-wrapper button:hover,
 #toolbar-down button:hover {
@@ -102,7 +184,7 @@ html[data-theme="dark"] {
 
 /* Calc's notebookbar uses several nested surfaces with light-theme-specific
  * selectors, so target the rendered containers instead of relying on tokens
- * alone. Keep the workspace visibly distinct from its #110011 sheet canvas. */
+ * alone. The workspace remains distinct from its #181B1B sheet canvas. */
 html .main-nav.hasnotebookbar,
 html .main-nav.hasnotebookbar .notebookbar-tabs-container,
 html .main-nav.hasnotebookbar .notebookbar-shortcuts-bar,
