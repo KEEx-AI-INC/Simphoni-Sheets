@@ -68,12 +68,38 @@ html[data-theme="dark"] .document-logo,
   background: url("images/simphoni-sheets-wordmark.svg") no-repeat center / contain !important;
 }
 
+/* Calc renders the product logo in a 30px icon slot by default. The header
+ * itself needs to participate in the wider wordmark footprint, otherwise the
+ * SVG is technically loaded but visually reduced to a dot. */
+#document-header {
+  display: flex !important;
+  align-items: center;
+  width: clamp(218px, 18vw, 288px) !important;
+  min-width: 218px !important;
+  height: 34px;
+  margin-inline-end: 8px;
+}
+
+#document-header > .document-logo,
+#document-logo.document-logo {
+  display: block;
+  width: 100% !important;
+  min-width: 0 !important;
+  height: 32px !important;
+  background: url("images/simphoni-sheets-wordmark.svg") no-repeat left center / contain !important;
+}
+
 @media (max-width: 760px) {
   .img-coda-app-logo,
   html[data-theme="dark"] .img-coda-app-logo {
     width: 172px;
     min-width: 172px;
     min-height: 38px;
+  }
+
+  #document-header {
+    width: 172px !important;
+    min-width: 172px !important;
   }
 }
 
