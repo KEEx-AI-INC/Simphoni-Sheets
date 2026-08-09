@@ -1,23 +1,18 @@
 # SimphoniSheets default appearance
 
-## Violett Grid
+## Charcoal Green
 
-The default SimphoniSheets appearance is derived from the supplied workbook
-reference image, sampled from its flat interior regions rather than anti-aliased
-text edges.
+The default SimphoniSheets appearance uses the shared dark product palette.
 
 | Role | Value | Applied by |
 | --- | --- | --- |
-| Workbook cell field | `#1A151A` | New XLSX and ODS templates; editor canvas |
-| Column and control header | `#19171B` | Collabora chrome; offline library surfaces |
-| Workbook grid | `#3C383D` | New XLSX and ODS borders; editor chrome borders |
-| Lavender labels | `#806E8E` | Column/control labels and muted product text |
-| Raised control | `#211B24` | Controls, cards, and input surfaces |
-| Hover/control emphasis | `#2A252E` | Interactive hover states |
-| Higher-contrast text | `#B09AB8` | Readable body and control text |
-
-The screenshot also contains anti-aliased intermediate shades around text and
-grid edges. Those are rendering artifacts, not additional design tokens.
+| Workbook cell field | `#181B1B` | New XLSX and ODS templates; editor canvas |
+| Column and control header | `#151216` | Collabora chrome; offline library surfaces |
+| Workbook grid | `#0D0D0D` | New XLSX and ODS borders; editor chrome borders |
+| Control labels | `#F2E6FF` | Column/control labels and headings |
+| Raised control | `#1F1A20` | Controls, cards, and input surfaces |
+| Hover/control emphasis | `#2B252D` | Interactive hover states |
+| Authored cell text | `#E9FFF8` | Readable workbook content |
 
 ## Product boundary
 

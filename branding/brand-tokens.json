@@ -3,11 +3,11 @@
   "suiteName": "Simphoni",
   "defaultFormat": "xlsx",
   "defaultAppearance": {
-    "name": "Violett Grid",
-    "cellBackground": "#1A151A",
-    "headerBackground": "#19171B",
-    "gridLine": "#3C383D",
-    "labelText": "#806E8E"
+    "name": "Charcoal Green",
+    "cellBackground": "#181B1B",
+    "headerBackground": "#151216",
+    "gridLine": "#0D0D0D",
+    "labelText": "#F2E6FF"
   },
   "sourceUrl": "https://github.com/KEEx-AI-INC/Simphoni-Sheets",
   "supportUrl": "https://simphoni.ai/support",

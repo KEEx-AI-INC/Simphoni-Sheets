@@ -17,14 +17,15 @@ artifact manifests. Runtime ownership remains intentionally split:
 - `Simphoni-Firebase` owns Firestore and Storage policy.
 - `Simphoni-Nucleus` stages reviewed offline artifacts and owns local lifecycle.
 
-## Default appearance: Violett Grid
+## Default appearance: Charcoal Green
 
-SimphoniSheets defaults to the product-series **Violett Grid** treatment. New
-workbooks use a `#1A151A` cell field, `#3C383D` grid, `#19171B` header/control
-surface, and muted `#806E8E` lavender labels. The same palette is applied to
-the Collabora branding patch and the offline library so cloud and local entry
-points read as one product. See [docs/default-appearance.md](docs/default-appearance.md)
-for the source-reference extraction and implementation boundary.
+SimphoniSheets defaults to the product-series **Charcoal Green** treatment.
+New workbooks use a `#181B1B` cell field, `#0D0D0D` grid, `#151216`
+header/control surface, mint authored text, and off-white magenta control
+labels. The same palette is applied to the Collabora branding patch and the
+offline library so cloud and local entry points read as one product. See
+[docs/default-appearance.md](docs/default-appearance.md) for the implementation
+boundary.
 
 ## Safety boundary
 

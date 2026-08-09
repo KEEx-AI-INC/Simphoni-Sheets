@@ -10,14 +10,14 @@ function applyDarkDefault() {
   var root = document.documentElement;
   root.setAttribute('data-theme', 'dark');
   // Keep the persisted workbook palette and the editor chrome in agreement.
-  // Collabora otherwise restores these older values after the stylesheet loads.
-  root.style.setProperty('--color-main-background', '#19171b', 'important');
-  root.style.setProperty('--color-background', '#19171b', 'important');
-  root.style.setProperty('--color-background-lighter', '#211b24', 'important');
-  root.style.setProperty('--color-background-hover', '#2a252e', 'important');
-  root.style.setProperty('--color-border', '#3c383d', 'important');
-  root.style.setProperty('--color-main-text', '#b09ab8', 'important');
-  root.style.setProperty('--color-calc-grid', '#3c383d', 'important');
+  // Collabora otherwise restores its stored values after the stylesheet loads.
+  root.style.setProperty('--color-main-background', '#151216', 'important');
+  root.style.setProperty('--color-background', '#151216', 'important');
+  root.style.setProperty('--color-background-lighter', '#1f1a20', 'important');
+  root.style.setProperty('--color-background-hover', '#2b252d', 'important');
+  root.style.setProperty('--color-border', '#56475a', 'important');
+  root.style.setProperty('--color-main-text', '#f2e6ff', 'important');
+  root.style.setProperty('--color-calc-grid', '#0d0d0d', 'important');
 }
 
 applyDarkDefault();
