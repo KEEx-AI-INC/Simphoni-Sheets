@@ -2,22 +2,23 @@
 @import url("branding-upstream.css");
 
 :root {
-  --simphoni-sheets-violet: #6d42e5;
-  --simphoni-sheets-magenta: #ec4aa8;
-  --simphoni-sheets-ink: #0d0d0d;
-  --simphoni-sheets-paper: #f2e6ff;
-  --simphoni-sheets-canvas: #181b1b;
-  --simphoni-sheets-grid: #0d0d0d;
-  --simphoni-sheets-cell-text: #e9fff8;
-  --simphoni-sheets-control: #151216;
-  --simphoni-sheets-control-raised: #1f1a20;
-  --simphoni-sheets-control-hover: #2b252d;
-  --simphoni-sheets-control-border: #56475a;
-  --simphoni-sheets-control-text: #f2e6ff;
-  --simphoni-sheets-control-muted-text: #cfbdd8;
-  --simphoni-sheets-scroll-track: #151216;
-  --simphoni-sheets-scroll-thumb: #4d3d52;
-  --simphoni-sheets-scroll-thumb-hover: #6b5170;
+  /* Violett Grid: sampled from the product-series workbook reference. */
+  --simphoni-sheets-violet: #806e8e;
+  --simphoni-sheets-magenta: #a58daf;
+  --simphoni-sheets-ink: #1a151a;
+  --simphoni-sheets-paper: #b09ab8;
+  --simphoni-sheets-canvas: #1a151a;
+  --simphoni-sheets-grid: #3c383d;
+  --simphoni-sheets-cell-text: #b09ab8;
+  --simphoni-sheets-control: #19171b;
+  --simphoni-sheets-control-raised: #211b24;
+  --simphoni-sheets-control-hover: #2a252e;
+  --simphoni-sheets-control-border: #3c383d;
+  --simphoni-sheets-control-text: #b09ab8;
+  --simphoni-sheets-control-muted-text: #806e8e;
+  --simphoni-sheets-scroll-track: #19171b;
+  --simphoni-sheets-scroll-thumb: #433f44;
+  --simphoni-sheets-scroll-thumb-hover: #5f526a;
   --color-primary: var(--simphoni-sheets-violet);
   --color-primary-text: var(--simphoni-sheets-cell-text);
   --spinner-logo: url("images/simphoni-sheets-wordmark.svg");
@@ -26,19 +27,19 @@
    * surrounding Collabora controls read as a related, intentionally darker UI. */
   --color-main-background: var(--simphoni-sheets-control);
   --color-background: var(--simphoni-sheets-control);
-  --color-background-dark: #100e10;
-  --color-background-darker: #0d0d0d;
+  --color-background-dark: var(--simphoni-sheets-ink);
+  --color-background-darker: #151216;
   --color-background-lighter: var(--simphoni-sheets-control-raised);
   --color-background-hover: var(--simphoni-sheets-control-hover);
   --color-main-text: var(--simphoni-sheets-control-text);
   --color-text-dark: var(--simphoni-sheets-control-text);
   --color-text-darker: var(--simphoni-sheets-control-text);
   --color-text-light: var(--simphoni-sheets-control-muted-text);
-  --color-text-lighter: #a993b2;
+  --color-text-lighter: var(--simphoni-sheets-control-muted-text);
   --color-border: var(--simphoni-sheets-control-border);
-  --color-border-dark: #423746;
-  --color-border-darker: #302834;
-  --color-border-lighter: #705e74;
+  --color-border-dark: #302b31;
+  --color-border-darker: #262126;
+  --color-border-lighter: #5f526a;
   --color-toolbar-border: #423746;
   --color-calc-header: var(--simphoni-sheets-control);
   --color-calc-header-hover: var(--simphoni-sheets-control-hover);
@@ -110,7 +111,7 @@ html[data-theme="dark"] .document-logo,
 
 html[data-theme="dark"] {
   --simphoni-sheets-paper: var(--simphoni-sheets-control-text);
-  --simphoni-sheets-ink: #0d0d0d;
+  --simphoni-sheets-ink: #1a151a;
 }
 
 html,
@@ -210,7 +211,7 @@ body ::-webkit-scrollbar-thumb:hover {
 
 /* Calc's notebookbar uses several nested surfaces with light-theme-specific
  * selectors, so target the rendered containers instead of relying on tokens
- * alone. The workspace remains distinct from its #181B1B sheet canvas. */
+ * alone. The workspace remains distinct from its #1A151A sheet canvas. */
 html .main-nav.hasnotebookbar,
 html .main-nav.hasnotebookbar .notebookbar-tabs-container,
 html .main-nav.hasnotebookbar .notebookbar-shortcuts-bar,
