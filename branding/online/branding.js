@@ -9,8 +9,8 @@ var brandProductFAQURL = 'https://simphoni.ai/support';
 function applyDarkDefault() {
   var root = document.documentElement;
   root.setAttribute('data-theme', 'dark');
-  root.style.setProperty('--color-main-background', '#26142f', 'important');
-  root.style.setProperty('--color-background', '#26142f', 'important');
+  root.style.setProperty('--color-main-background', '#1f1a20', 'important');
+  root.style.setProperty('--color-background', '#1f1a20', 'important');
   root.style.setProperty('--color-background-lighter', '#321a3e', 'important');
   root.style.setProperty('--color-background-hover', '#412454', 'important');
   root.style.setProperty('--color-border', '#76538f', 'important');
