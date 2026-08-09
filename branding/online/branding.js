@@ -18,9 +18,26 @@ function applyDarkDefault() {
 }
 
 applyDarkDefault();
-[0, 150, 500, 1200, 2500].forEach(function (delay) {
-  window.setTimeout(applyDarkDefault, delay);
+// The saved Collabora preference is applied asynchronously, often after its
+// toolbar finishes rendering. Keep the product default through that bounded
+// startup window, then stop observing so a later user-selected theme wins.
+var darkDefaultDeadline = Date.now() + 15000;
+var darkDefaultObserver = new MutationObserver(function () {
+  if (Date.now() >= darkDefaultDeadline) {
+    darkDefaultObserver.disconnect();
+    return;
+  }
+  if (document.documentElement.getAttribute('data-theme') !== 'dark') {
+    applyDarkDefault();
+  }
 });
+darkDefaultObserver.observe(document.documentElement, {
+  attributes: true,
+  attributeFilter: ['data-theme'],
+});
+window.setTimeout(function () {
+  darkDefaultObserver.disconnect();
+}, 15000);
 
 window.addEventListener('load', function () {
   function wireBranding() {
