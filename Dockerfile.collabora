@@ -17,8 +17,19 @@ COPY --chown=1001:1001 branding/online/branding.css \
   /usr/share/coolwsd/browser/dist/branding.css
 COPY --chown=1001:1001 branding/online/branding.js \
   /usr/share/coolwsd/browser/dist/branding.js
+COPY --chown=1001:1001 branding/online/cool.html \
+  /usr/share/coolwsd/browser/dist/cool.html
 COPY --chown=1001:1001 branding/online/simphoni-sheets-wordmark.svg \
   /usr/share/coolwsd/browser/dist/images/simphoni-sheets-wordmark.svg
+
+# COOL serves the active editor from a revisioned browser directory; preserve
+# the dist copies for direct assets and replace the runtime-loaded copies too.
+COPY --chown=1001:1001 branding/online/branding.css \
+  /usr/share/coolwsd/browser/${COLLABORA_SOURCE_REVISION}/branding.css
+COPY --chown=1001:1001 branding/online/branding.js \
+  /usr/share/coolwsd/browser/${COLLABORA_SOURCE_REVISION}/branding.js
+COPY --chown=1001:1001 branding/online/simphoni-sheets-wordmark.svg \
+  /usr/share/coolwsd/browser/${COLLABORA_SOURCE_REVISION}/images/simphoni-sheets-wordmark.svg
 
 LABEL org.opencontainers.image.title="SimphoniSheets Collabora Online"
 LABEL org.opencontainers.image.description="Simphoni-branded Collabora Online editor for SimphoniSheets"

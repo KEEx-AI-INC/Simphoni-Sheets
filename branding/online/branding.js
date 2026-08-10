@@ -1,7 +1,46 @@
 /* SPDX-License-Identifier: MPL-2.0 */
-var brandProductName = 'SimphoniSheets';
+var brandProductName = 'Simphoni Sheets';
 var brandProductURL = 'https://simphoni.ai/sheets';
 var brandProductFAQURL = 'https://simphoni.ai/support';
+
+// Collabora restores its stored theme after this branding file initially runs.
+// Re-apply the product default through that startup window, then leave any
+// later choice from its theme picker alone.
+function applyDarkDefault() {
+  var root = document.documentElement;
+  root.setAttribute('data-theme', 'dark');
+  // Keep the persisted workbook palette and the editor chrome in agreement.
+  // Collabora otherwise restores its stored values after the stylesheet loads.
+  root.style.setProperty('--color-main-background', '#151216', 'important');
+  root.style.setProperty('--color-background', '#151216', 'important');
+  root.style.setProperty('--color-background-lighter', '#1f1a20', 'important');
+  root.style.setProperty('--color-background-hover', '#2b252d', 'important');
+  root.style.setProperty('--color-border', '#56475a', 'important');
+  root.style.setProperty('--color-main-text', '#f2e6ff', 'important');
+  root.style.setProperty('--color-calc-grid', '#0d0d0d', 'important');
+}
+
+applyDarkDefault();
+// The saved Collabora preference is applied asynchronously, often after its
+// toolbar finishes rendering. Keep the product default through that bounded
+// startup window, then stop observing so a later user-selected theme wins.
+var darkDefaultDeadline = Date.now() + 15000;
+var darkDefaultObserver = new MutationObserver(function () {
+  if (Date.now() >= darkDefaultDeadline) {
+    darkDefaultObserver.disconnect();
+    return;
+  }
+  if (document.documentElement.getAttribute('data-theme') !== 'dark') {
+    applyDarkDefault();
+  }
+});
+darkDefaultObserver.observe(document.documentElement, {
+  attributes: true,
+  attributeFilter: ['data-theme'],
+});
+window.setTimeout(function () {
+  darkDefaultObserver.disconnect();
+}, 15000);
 
 window.addEventListener('load', function () {
   function wireBranding() {

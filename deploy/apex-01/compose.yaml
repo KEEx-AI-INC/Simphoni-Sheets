@@ -6,7 +6,7 @@ services:
     ports:
       - "127.0.0.1:9980:9980"
     environment:
-      aliasgroup1: "https://simphoni.ai:443,https://www.simphoni.ai:443"
+      aliasgroup1: "https://simphoni.ai:443,https://www.simphoni.ai:443,https://sheets.simphoni.ai:443"
       server_name: sheets.simphoni.ai
       extra_params: >-
         --o:ssl.enable=false

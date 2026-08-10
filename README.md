@@ -17,6 +17,16 @@ artifact manifests. Runtime ownership remains intentionally split:
 - `Simphoni-Firebase` owns Firestore and Storage policy.
 - `Simphoni-Nucleus` stages reviewed offline artifacts and owns local lifecycle.
 
+## Default appearance: Charcoal Green
+
+SimphoniSheets defaults to the product-series **Charcoal Green** treatment.
+New workbooks use a `#181B1B` cell field, `#0D0D0D` grid, `#151216`
+header/control surface, mint authored text, and off-white magenta control
+labels. The same palette is applied to the Collabora branding patch and the
+offline library so cloud and local entry points read as one product. See
+[docs/default-appearance.md](docs/default-appearance.md) for the implementation
+boundary.
+
 ## Safety boundary
 
 SimpleCode never sends arbitrary UNO, Python, macro, or shell commands to an

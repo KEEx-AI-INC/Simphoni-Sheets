@@ -8,11 +8,12 @@ discovery_file="$(mktemp -t simphoni-sheets-discovery.XXXXXX)"
 branding_file="$(mktemp -t simphoni-sheets-branding.XXXXXX)"
 branding_css_file="$(mktemp -t simphoni-sheets-branding-css.XXXXXX)"
 wordmark_file="$(mktemp -t simphoni-sheets-wordmark.XXXXXX)"
+cool_file="$(mktemp -t simphoni-sheets-cool.XXXXXX)"
 
 cleanup() {
   docker container stop --time 5 "$container_name" >/dev/null 2>&1 || true
   docker container rm "$container_name" >/dev/null 2>&1 || true
-  find "$discovery_file" "$branding_file" "$branding_css_file" "$wordmark_file" -delete 2>/dev/null || true
+  find "$discovery_file" "$branding_file" "$branding_css_file" "$wordmark_file" "$cool_file" -delete 2>/dev/null || true
 }
 trap cleanup EXIT INT TERM
 
@@ -41,10 +42,12 @@ for _attempt in $(seq 1 18); do
     browser_version="${browser_path#browser/}"
     browser_version="${browser_version%/cool.html}"
     test -n "$browser_version"
+    curl -fsS "http://127.0.0.1:${host_port}/browser/${browser_version}/cool.html" -o "$cool_file"
     curl -fsS "http://127.0.0.1:${host_port}/browser/${browser_version}/branding.js" -o "$branding_file"
     curl -fsS "http://127.0.0.1:${host_port}/browser/${browser_version}/branding.css" -o "$branding_css_file"
     curl -fsS "http://127.0.0.1:${host_port}/browser/${browser_version}/images/simphoni-sheets-wordmark.svg" -o "$wordmark_file"
-    grep -q "brandProductName = 'SimphoniSheets'" "$branding_file"
+    grep -q "brandProductName = 'Simphoni Sheets'" "$branding_file"
+    grep -q 'simphoni_brand=palette-20260808' "$cool_file"
     grep -q -- '--simphoni-sheets-violet' "$branding_css_file"
     grep -q '<title id="title">SimphoniSheets</title>' "$wordmark_file"
     echo "Collabora discovery and image health passed for $image."
